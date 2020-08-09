@@ -111,8 +111,8 @@ const SinglePost = (props: Props) => {
 
 
   const [title, setTitle] = useState<string>("");
-  const [body, setBody] = useState<string>("");
   const [editTitle, setEditTitle] = useState<boolean>(false);
+  const [body, setBody] = useState<string>("");
   const [editBody, setEditBody] = useState<boolean>(false);
 
   const {pathname} = useLocation();
