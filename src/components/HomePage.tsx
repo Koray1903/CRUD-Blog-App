@@ -1,6 +1,7 @@
 import React, {useEffect, memo} from "react";
 import styled from 'styled-components';
 import {Link} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchAllPosts} from "../redux/postReducer/Actions";
 
@@ -69,11 +70,13 @@ const HomePage = () => {
 
   const posts = useSelector((state: RootState) => state.postReducer.posts)
 
+  const {pathname} = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchAllPosts());
-  }, []);
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <>

@@ -63,6 +63,9 @@ const PostButton = styled.button`
   cursor: pointer;
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 0.1rem;
+  :hover{
+    opacity:0.8
+  }
 `
 
 
