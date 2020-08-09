@@ -5,47 +5,54 @@ import {useLocation} from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchAllPosts} from "../redux/postReducer/Actions";
 
+import BlogImg from '../assets/blog.jpg';
+
 const Background = styled.div`
-  background: #f89029;
-  width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
 `
 
-const Post = styled.div`
-  background: transparent;
+const PostDiv = styled.div`
+  background-color: lightgray;
   width: 30%;
-  height: 50vh;
+  height: 85vh;
   margin: 2rem;
-  padding: 0 1rem 0 1rem;
+  padding: 0 0.5rem 1rem 0.5rem;
   border-radius: 1rem;
   font-weight: bold;
-  border: 1px solid black;
   display:flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-content: center;
+`
+
+const BlogImage = styled.img`
+  margin-top: 1rem;
+  border-radius: 1rem;
+  width: 95%;
+  align-self: center;
 `
 
 const Title = styled.p`
   border-bottom: 1px solid black;
-  padding: 1rem;
-  cursor: pointer;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem 1rem 1rem;
+  font-size: 1rem;
   font-family: 'Montserrat', sans-serif;
 `
 
 const Body = styled.p`
+  margin: 0;
   padding: 1rem;
-  cursor: pointer;
   font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
   overflow: hidden;
-   text-overflow: ellipsis;
-   display: -webkit-box;
-   -webkit-line-clamp: 7;
-   -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
 `
 
 const StyledLink = styled(Link)`
@@ -53,6 +60,15 @@ const StyledLink = styled(Link)`
   &:focus, &:hover, &:visited, &:link, &:active {
     text-decoration: none;
     color:black;
+  }
+`
+
+const ReadMore = styled.p`
+  font-family: 'Montserrat', sans-serif;
+  text-align: right;
+  font-size: 1rem;
+  :hover{
+    opacity:0.8
   }
 `
 
@@ -83,13 +99,19 @@ const HomePage = () => {
       <Background>
 
         {posts ? posts.map((post: Post) => (
-          <Post key={post.id}>
+          <PostDiv key={post.id}>
+
+            <BlogImage src={BlogImg}/>
+
+            <Title>{post.title}</Title>
+
+            <Body>{post.body}</Body>
+
             <StyledLink to={`/post/${post.id}`}>
-              <Title>{post.title}</Title>
-              <Body>{post.body}</Body>
+              <ReadMore>Read more...</ReadMore>
             </StyledLink>
 
-          </Post>
+          </PostDiv>
         )) : null}
 
       </Background>

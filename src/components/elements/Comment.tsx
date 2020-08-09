@@ -95,13 +95,16 @@ const Comment = (props: { id: number }) => {
       setComment("");
       setSuccessMessage("Posted successfully.");
       setDisplay(true);
+
       setTimeout(() => {
         setDisplay(false);
         dispatch(fetchComments(props.id));
       }, 1000);
+
     } else {
       setErrorMessage("Please fill in all required fields");
       setDisplay(true);
+
       setTimeout(() => {
         setErrorMessage("");
         setDisplay(false);
@@ -122,8 +125,7 @@ const Comment = (props: { id: number }) => {
       <CommentInput
         placeholder="Enter your comment here"
         value={comment}
-        onChange={(event) => setComment(event.target.value)}
-      />
+        onChange={(event) => setComment(event.target.value)}/>
 
       <PostButton
         onClick={() => handleComment(comment)}>

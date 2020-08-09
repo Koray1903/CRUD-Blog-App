@@ -40,6 +40,7 @@ const Title = styled.p`
   font-size: 2rem;
   font-family: 'Montserrat', sans-serif;
   border-bottom: 1px solid black;
+  text-transform: uppercase;
 `
 
 const TitleInput = styled.input`
@@ -106,9 +107,9 @@ export interface Props {
 }
 
 const SinglePost = (props: Props) => {
+
   const post = useSelector((state: RootState) => state.postReducer.post)
   const dispatch = useDispatch();
-
 
   const [title, setTitle] = useState<string>("");
   const [editTitle, setEditTitle] = useState<boolean>(false);
@@ -157,14 +158,15 @@ const SinglePost = (props: Props) => {
     setTimeout(() => {
       history.push("/");
     }, 500)
-  }, [])
 
+  }, [])
 
   return (
     <Background>
 
       {post ?
         <PostDiv>
+
           {/* TITLE */}
           {editTitle ?
             <>
@@ -199,7 +201,6 @@ const SinglePost = (props: Props) => {
             <EditButton src={editSVG}
                         onClick={handleEditBody}
                         alt="edit"/> : null}
-
           {/* BODY */}
 
           <DeleteButton src={deleteSVG}

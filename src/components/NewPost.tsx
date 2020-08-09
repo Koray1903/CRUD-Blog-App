@@ -4,7 +4,6 @@ import {createPost} from "../redux/postReducer/Actions";
 import {useDispatch} from "react-redux";
 import {useHistory} from "react-router-dom";
 
-
 const Background = styled.div`
   background-color: #f89029;
   display: flex;
@@ -68,7 +67,6 @@ const PostButton = styled.button`
   }
 `
 
-
 const NewPost = () => {
 
   const [title, setTitle] = useState<string>("");
@@ -107,7 +105,6 @@ const NewPost = () => {
 
   return (
     <>
-
       <Background>
         <TitleInput
           placeholder="Title"
