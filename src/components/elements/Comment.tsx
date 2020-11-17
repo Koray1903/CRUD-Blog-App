@@ -2,6 +2,7 @@ import React, {useCallback, useState, memo} from 'react';
 import styled from "styled-components";
 import {createComment, fetchComments} from "../../redux/postReducer/Actions";
 import {useDispatch, useSelector} from "react-redux";
+import {Dispatch} from "redux"
 import {RootState} from "../HomePage";
 
 const FlexDiv = styled.div`
@@ -73,76 +74,76 @@ const ErrorMessage = styled.p`
 `
 
 interface Comment {
-  id: number,
-  postID: number,
-  body: string
+    id: number,
+    postID: number,
+    body: string
 }
 
 
 const Comment = (props: { id: number }) => {
 
-  const comments = useSelector((state: RootState) => state.postReducer.post.comments)
-  const dispatch = useDispatch();
+    const comments = useSelector((state: RootState) => state.postReducer.post.comments)
+    const dispatch: Dispatch<any> = useDispatch()
 
-  const [comment, setComment] = useState<string>("");
-  const [display, setDisplay] = useState<boolean>(false);
-  const [successMessage, setSuccessMessage] = useState<string>("");
-  const [errorMessage, setErrorMessage] = useState<string>("");
+    const [comment, setComment] = useState<string>("");
+    const [display, setDisplay] = useState<boolean>(false);
+    const [successMessage, setSuccessMessage] = useState<string>("");
+    const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const handleComment = useCallback((comment) => {
-    if (comment) {
-      dispatch(createComment(props.id, comment))
-      setComment("");
-      setSuccessMessage("Posted successfully.");
-      setDisplay(true);
+    const handleComment = useCallback((comment) => {
+        if (comment) {
+            dispatch(createComment(props.id, comment))
+            setComment("");
+            setSuccessMessage("Posted successfully.");
+            setDisplay(true);
 
-      setTimeout(() => {
-        setDisplay(false);
-        dispatch(fetchComments(props.id));
-      }, 1000);
+            setTimeout(() => {
+                setDisplay(false);
+                dispatch(fetchComments(props.id));
+            }, 1000);
 
-    } else {
-      setErrorMessage("Please fill in all required fields");
-      setDisplay(true);
+        } else {
+            setErrorMessage("Please fill in all required fields");
+            setDisplay(true);
 
-      setTimeout(() => {
-        setErrorMessage("");
-        setDisplay(false);
-      }, 1000)
-    }
-  }, [])
+            setTimeout(() => {
+                setErrorMessage("");
+                setDisplay(false);
+            }, 1000)
+        }
+    }, [])
 
-  return (
-    <FlexDiv>
-      <Title>Comments</Title>
+    return (
+        <FlexDiv>
+            <Title>Comments</Title>
 
-      {comments ? comments.map((comment: Comment) => (
-        <CommentDiv key={comment.id}>
-          <Body>{comment.body}</Body>
-        </CommentDiv>
-      )) : null}
+            {comments ? comments.map((comment: Comment) => (
+                <CommentDiv key={comment.id}>
+                    <Body>{comment.body}</Body>
+                </CommentDiv>
+            )) : null}
 
-      <CommentInput
-        placeholder="Enter your comment here"
-        value={comment}
-        onChange={(event) => setComment(event.target.value)}/>
+            <CommentInput
+                placeholder="Enter your comment here"
+                value={comment}
+                onChange={(event) => setComment(event.target.value)}/>
 
-      <PostButton
-        onClick={() => handleComment(comment)}>
-        Post
-      </PostButton>
+            <PostButton
+                onClick={() => handleComment(comment)}>
+                Post
+            </PostButton>
 
-      <SuccessMessage
-        style={{display: display ? "block" : "none"}}>
-        {successMessage}
-      </SuccessMessage>
+            <SuccessMessage
+                style={{display: display ? "block" : "none"}}>
+                {successMessage}
+            </SuccessMessage>
 
-      <ErrorMessage
-        style={{display: display ? "block" : "none"}}>
-        {errorMessage}
-      </ErrorMessage>
-    </FlexDiv>
-  );
+            <ErrorMessage
+                style={{display: display ? "block" : "none"}}>
+                {errorMessage}
+            </ErrorMessage>
+        </FlexDiv>
+    );
 };
 
 export default memo(Comment);

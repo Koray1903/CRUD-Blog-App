@@ -2,6 +2,7 @@ import React, {useCallback, useState} from 'react';
 import styled from "styled-components";
 import {createPost} from "../redux/postReducer/Actions";
 import {useDispatch} from "react-redux";
+import { Dispatch } from "redux"
 import {useHistory} from "react-router-dom";
 
 const Background = styled.div`
@@ -75,7 +76,7 @@ const NewPost = () => {
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const dispatch = useDispatch();
+  const dispatch: Dispatch<any> = useDispatch()
 
   const history = useHistory();
 

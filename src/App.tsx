@@ -1,13 +1,14 @@
-import React from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import {createGlobalStyle} from 'styled-components'
-import {Provider} from "react-redux";
-import {PersistGate} from 'redux-persist/lib/integration/react'
-import {store, persistor} from "./redux/store";
+import React, {useEffect} from "react";
+import {BrowserRouter, Route, Switch} from "react-router-dom"
+import {createGlobalStyle} from "styled-components"
 import Header from "./components/Header";
 import HomePage from "./components/HomePage";
 import NewPost from "./components/NewPost";
 import SinglePost from "./components/SinglePost";
+
+// import {fetchAllPosts} from "./redux/postReducer/Actions";
+// import {Dispatch} from "redux"
+// import {useDispatch} from "react-redux";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -15,22 +16,28 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-function App() {
-  return (
-    <Router>
-      <Switch>
-        <Provider store={store}>
-          <PersistGate persistor={persistor}>
-            <GlobalStyle/>
-            <Header/>
-            <Route exact path="/" component={HomePage}/>
-            <Route path="/new" component={NewPost}/>
-            <Route path="/post/:postId" component={SinglePost}/>
-          </PersistGate>
-        </Provider>
-      </Switch>
-    </Router>
-  );
+const App = () => {
+
+    // const dispatch: Dispatch<any> = useDispatch()
+    //
+    // useEffect(() => {
+    //     dispatch(fetchAllPosts());
+    //     window.scrollTo(0, 0);
+    // }, []);
+
+    return (
+        <>
+            <BrowserRouter>
+                {/*<Switch>*/}
+                    <GlobalStyle/>
+                    <Header/>
+                    <Route path="/" component={HomePage}/>
+                    <Route path="/new" component={NewPost}/>
+                    <Route path="/post/:postId" component={SinglePost}/>
+                {/*</Switch>*/}
+            </BrowserRouter>
+        </>
+    );
 }
 
 export default App;

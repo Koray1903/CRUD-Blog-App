@@ -2,6 +2,7 @@ import React, {useState, useEffect, useCallback, useMemo, memo} from "react";
 import Comment from "./elements/Comment";
 import styled from "styled-components";
 import {useSelector, useDispatch} from 'react-redux';
+import { Dispatch } from "redux"
 import {useLocation} from "react-router-dom";
 import {useHistory} from "react-router-dom";
 import {deletePost, fetchSinglePost, updatePost} from "../redux/postReducer/Actions";
@@ -109,7 +110,7 @@ export interface Props {
 const SinglePost = (props: Props) => {
 
   const post = useSelector((state: RootState) => state.postReducer.post)
-  const dispatch = useDispatch();
+  const dispatch: Dispatch<any> = useDispatch()
 
   const [title, setTitle] = useState<string>("");
   const [editTitle, setEditTitle] = useState<boolean>(false);

@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import {Link} from "react-router-dom";
 import {useLocation} from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux';
+import {Dispatch} from "redux"
 import {fetchAllPosts} from "../redux/postReducer/Actions";
+import {db} from "../firebase.js";
 
 import BlogImg from '../assets/blog.jpg';
 
@@ -73,50 +75,51 @@ const ReadMore = styled.p`
 `
 
 export interface RootState {
-  postReducer: any
+    postReducer: any
 }
 
 export interface Post {
-  id: number,
-  title: string,
-  body: string
+    id: number,
+    title: string,
+    body: string
 }
 
 const HomePage = () => {
 
-  const posts = useSelector((state: RootState) => state.postReducer.posts)
+    const posts = useSelector((state: RootState) => state.postReducer.posts)
 
-  const {pathname} = useLocation();
-  const dispatch = useDispatch();
+    const {pathname} = useLocation();
+    const dispatch: Dispatch<any> = useDispatch()
 
-  useEffect(() => {
-    dispatch(fetchAllPosts());
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    // useEffect(() => {
+    //     dispatch(fetchAllPosts());
+    //     window.scrollTo(0, 0);
+    // }, [pathname]);
 
-  return (
-    <>
-      <Background>
 
-        {posts ? posts.map((post: Post) => (
-          <PostDiv key={post.id}>
+    return (
+        <>
+            <Background>
 
-            <BlogImage src={BlogImg}/>
+                {posts ? posts.map((post: Post) => (
+                    <PostDiv key={post.id}>
 
-            <Title>{post.title}</Title>
+                        <BlogImage src={BlogImg}/>
 
-            <Body>{post.body}</Body>
+                        <Title>{post.title}</Title>
 
-            <StyledLink to={`/post/${post.id}`}>
-              <ReadMore>Read more...</ReadMore>
-            </StyledLink>
+                        <Body>{post.body}</Body>
 
-          </PostDiv>
-        )) : null}
+                        <StyledLink to={`/post/${post.id}`}>
+                            <ReadMore>Read more...</ReadMore>
+                        </StyledLink>
 
-      </Background>
-    </>
-  );
+                    </PostDiv>
+                )) : null}
+
+            </Background>
+        </>
+    );
 };
 
 export default memo(HomePage);
