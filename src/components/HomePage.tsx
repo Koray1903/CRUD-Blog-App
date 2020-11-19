@@ -3,58 +3,85 @@ import styled from 'styled-components';
 import {Link} from "react-router-dom";
 import {useLocation} from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux';
-import {Dispatch} from "redux"
-import {fetchAllPosts} from "../redux/postReducer/Actions";
-import {db} from "../firebase.js";
-
+import {fetchAllPosts} from "../redux/Actions";
 import BlogImg from '../assets/blog.jpg';
+import {iPost} from "../redux/Types";
+import {RootState} from "../redux/rootReducer";
 
-const Background = styled.div`
+
+const BodyFlex = styled.div`
+  width: 1300px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-evenly;
 `
 
-const PostDiv = styled.div`
+const PostFlex = styled.div`
   background-color: lightgray;
-  width: 30%;
-  height: 85vh;
-  margin: 2rem;
-  padding: 0 0.5rem 1rem 0.5rem;
-  border-radius: 1rem;
-  font-weight: bold;
+  width: 450px;
+  height: 550px;
+  margin: 64px 0;
+  padding: 16px;
+  border-radius: 24px;
+  font-weight: 600;
   display:flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: space-between;
   align-content: center;
+  box-shadow: 8px 10px 19px 1px rgba(0,0,0,0.75);
 `
 
-const BlogImage = styled.img`
-  margin-top: 1rem;
-  border-radius: 1rem;
-  width: 95%;
+const PostImage = styled.img`
+  border-radius: 16px;
+  width: 100%;
   align-self: center;
 `
 
-const Title = styled.p`
-  border-bottom: 1px solid black;
+const PostTitle = styled.p`
   text-transform: uppercase;
-  padding: 0.5rem 1rem 1rem 1rem;
-  font-size: 1rem;
+  font-weight: 500;
+  margin: 24px 16px 12px 16px;
+  font-size: 22px;
   font-family: 'Montserrat', sans-serif;
+  text-align: justify;
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-overflow: clip;
+  word-break: break-word;
+  height: max-content;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 `
 
-const Body = styled.p`
-  margin: 0;
-  padding: 1rem;
+const HorizontalLine = styled.div`
+  height: 2px;
+  width: 100%;
+  background: black;
+`
+
+const PostBody = styled.p`
+  margin: 12px 16px auto 16px;
+  font-weight: 500;
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.8rem;
+  font-size: 16px;
+  text-align: justify;
+  white-space: pre-wrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow: clip;
+  word-break: break-word;
+  height: max-content;
   display: -webkit-box;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
+`
+
+const PostInnerFlex = styled.div`
+  margin: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `
 
 const StyledLink = styled(Link)`
@@ -65,59 +92,73 @@ const StyledLink = styled(Link)`
   }
 `
 
-const ReadMore = styled.p`
+const PostDate = styled.span`
+  font-family: 'Montserrat', sans-serif;
+  text-align: left;
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-size: 16px;
+  pointer-events: none;
+  :hover { cursor: not-allowed}
+`
+
+const PostReadMore = styled.span`
   font-family: 'Montserrat', sans-serif;
   text-align: right;
-  font-size: 1rem;
+  font-weight: 600;
+  font-size: 16px;
   :hover{
-    opacity:0.8
+    color: #f89029;
   }
 `
 
-export interface RootState {
-    postReducer: any
-}
-
-export interface Post {
-    id: number,
-    title: string,
-    body: string
-}
 
 const HomePage = () => {
 
-    const posts = useSelector((state: RootState) => state.postReducer.posts)
+    const posts = useSelector((state: RootState) => state.reducer.posts.sort(
+        (a, b) => {
+            if (a.created_at < b.created_at) return +1;
+            if (a.created_at > b.created_at) return -1;
+            return 0;
+        }
+    ))
 
     const {pathname} = useLocation();
-    const dispatch: Dispatch<any> = useDispatch()
+    const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     dispatch(fetchAllPosts());
-    //     window.scrollTo(0, 0);
-    // }, [pathname]);
+    useEffect(() => {
+        dispatch(fetchAllPosts());
+        window.scrollTo(0, 0);
+    }, [pathname]);
 
 
     return (
         <>
-            <Background>
+            <BodyFlex>
 
-                {posts ? posts.map((post: Post) => (
-                    <PostDiv key={post.id}>
+                {posts ? posts.map((post: iPost) => (
+                    <PostFlex key={post.postID}>
 
-                        <BlogImage src={BlogImg}/>
+                        <PostImage src={BlogImg}/>
 
-                        <Title>{post.title}</Title>
+                        <PostTitle>{post.title}</PostTitle>
 
-                        <Body>{post.body}</Body>
+                        <HorizontalLine/>
 
-                        <StyledLink to={`/post/${post.id}`}>
-                            <ReadMore>Read more...</ReadMore>
-                        </StyledLink>
+                        <PostBody>{post.body}</PostBody>
 
-                    </PostDiv>
+                        <PostInnerFlex>
+                            <PostDate>@ {post.created_at.toLocaleString()}</PostDate>
+
+                            <StyledLink to={`/post/${post.postID}`}>
+                                <PostReadMore>Read more...</PostReadMore>
+                            </StyledLink>
+                        </PostInnerFlex>
+
+                    </PostFlex>
                 )) : null}
 
-            </Background>
+            </BodyFlex>
         </>
     );
 };

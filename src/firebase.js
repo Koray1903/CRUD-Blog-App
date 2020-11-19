@@ -2,7 +2,6 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 
-
 const firebaseConfig = {
     apiKey: "AIzaSyAVbv0zp2J1swbu-qmtt81pMVYYlTwQX8U",
     authDomain: "react-ts-firebase-blog-app.firebaseapp.com",
@@ -15,6 +14,5 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-// export const auth = firebase.auth();
 export const db = firebase.firestore();
 export default firebase;

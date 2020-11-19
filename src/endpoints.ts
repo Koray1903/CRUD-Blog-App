@@ -1,1 +1,0 @@
-export const BASE_URL: string = "https://bloggy-api.herokuapp.com";

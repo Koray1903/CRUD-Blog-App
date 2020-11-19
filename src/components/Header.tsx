@@ -2,42 +2,54 @@ import React, {memo} from "react";
 import {Link} from "react-router-dom";
 import styled from 'styled-components';
 import logoSVG from '../assets/blog.svg';
-import addSVG from '../assets/addButton.svg';
 
-const NavBar = styled.div`
+
+const HeaderBackground = styled.div`
   background: black;
-  padding: 5vh 5vw;
-  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center
+`
+
+const HeaderFlex = styled.div`
+  background: black;
+  width: 1300px;
+  margin: 36px 0;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-items: center
 `
 
-const Logo = styled.img`
-  height: 13vh;
+const HeaderLogo = styled.img`
+  height: 96px;
   justify-self: start;
+  :hover{
+    opacity:0.8
+  }
+  :focus {
+    outline: none;
+  }
 `
 
-const BlogName = styled.p`
+const HeaderName = styled.p`
   color: #f89029;
-  font-size: 3rem;
-  font-weight: bold;
-  margin: 0 auto 0 0;
+  font-size: 48px;
+  font-weight: 700;
+  margin: 0 auto 0 16px;
   justify-self: start;
-  padding-left: 1rem;
   font-family: 'Montserrat', sans-serif;
 `
 
-const NewPostButton = styled.button`
+const HeaderNewPostButton = styled.button`
   background: #f89029;
-  justify-self: end;
-  width: 23rem;
-  font-size: 2rem;
+  width: 375px;
+  font-size: 32px;
+  font-weight: 600;
   border:none;
-  padding: 0.5rem 1rem;
-  margin: 0;
-  border-radius: 1rem;
+  padding: 8px 16px;
+  border-radius: 16px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -46,6 +58,9 @@ const NewPostButton = styled.button`
   :hover{
     opacity:0.8
   }
+  :focus {
+    outline: none;
+  }
 `
 
 const StyledLink = styled(Link)`
@@ -53,34 +68,38 @@ const StyledLink = styled(Link)`
   &:focus, &:hover, &:visited, &:link, &:active {
     text-decoration: none;
   }
-`;
-
-const PlusIcon = styled.img`
-height: 2rem
 `
+
+const HeaderPlusIcon = styled.i`
+  font-size: 32px;
+  color: black;
+`
+
 
 const Header = () => {
 
-  return (
-    <>
-      <NavBar>
+    return (
+        <HeaderBackground>
 
-        <StyledLink to={`/`}>
-          <Logo src={logoSVG}/>
-        </StyledLink>
+            <HeaderFlex>
 
-        <BlogName>SIMPLE BLOG APP</BlogName>
+                <StyledLink to={`/`}>
+                    <HeaderLogo src={logoSVG}/>
+                </StyledLink>
 
-        <StyledLink to={`/new`}>
-          <NewPostButton>
-            Create a new post
-            <PlusIcon src={addSVG}/>
-          </NewPostButton>
-        </StyledLink>
+                <HeaderName>SIMPLE BLOG APP</HeaderName>
 
-      </NavBar>
-    </>
-  );
+                <StyledLink to={`/new`}>
+                    <HeaderNewPostButton>
+                        Create a new post
+                        <HeaderPlusIcon className="fas fa-plus"/>
+                    </HeaderNewPostButton>
+                </StyledLink>
+
+            </HeaderFlex>
+
+        </HeaderBackground>
+    )
 };
 
 export default memo(Header);

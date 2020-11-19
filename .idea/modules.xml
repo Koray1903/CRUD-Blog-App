@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/tsblogapp.iml" filepath="$PROJECT_DIR$/.idea/tsblogapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/react-ts-firebase-blog-app.iml" filepath="$PROJECT_DIR$/.idea/react-ts-firebase-blog-app.iml" />
     </modules>
   </component>
 </project>

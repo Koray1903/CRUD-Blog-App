@@ -1,5 +1,5 @@
 {
-  "name": "react_ts_blogapp",
+  "name": "react-ts-firebase-blog-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,8 +14,8 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/redux-logger": "^3.0.8",
     "@types/styled-components": "^5.1.2",
-    "@typescript-eslint/eslint-plugin": "^3.8.0",
-    "axios": "^0.19.2",
+    "@types/uuid": "^8.3.0",
+    "@typescript-eslint/eslint-plugin": "^3.10.1",
     "eslint-plugin-react": "^7.20.5",
     "firebase": "^8.0.2",
     "react": "^16.13.1",
@@ -29,7 +29,8 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.1.1",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "uuid": "^8.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -51,5 +52,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {}
 }

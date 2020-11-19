@@ -1,42 +1,47 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {BrowserRouter, Route, Switch} from "react-router-dom"
-import {createGlobalStyle} from "styled-components"
+import styled, {createGlobalStyle} from "styled-components"
 import Header from "./components/Header";
 import HomePage from "./components/HomePage";
-import NewPost from "./components/NewPost";
-import SinglePost from "./components/SinglePost";
+import NewPostPage from "./components/NewPostPage";
+import SinglePostPage from "./components/SinglePostPage";
 
-// import {fetchAllPosts} from "./redux/postReducer/Actions";
-// import {Dispatch} from "redux"
-// import {useDispatch} from "react-redux";
 
 const GlobalStyle = createGlobalStyle`
   body {
-    background-color: #f89029;
+  background: #f89029;
+   margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   }
+`
+
+const Background = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
 `
 
 const App = () => {
 
-    // const dispatch: Dispatch<any> = useDispatch()
-    //
-    // useEffect(() => {
-    //     dispatch(fetchAllPosts());
-    //     window.scrollTo(0, 0);
-    // }, []);
-
     return (
-        <>
-            <BrowserRouter>
-                {/*<Switch>*/}
-                    <GlobalStyle/>
-                    <Header/>
-                    <Route path="/" component={HomePage}/>
-                    <Route path="/new" component={NewPost}/>
-                    <Route path="/post/:postId" component={SinglePost}/>
-                {/*</Switch>*/}
-            </BrowserRouter>
-        </>
+        <BrowserRouter>
+
+            <Header/>
+
+            <GlobalStyle/>
+
+            <Switch>
+                <Background>
+                    <Route exact path="/" component={HomePage}/>
+                    <Route path="/post/:postId" component={SinglePostPage}/>
+                    <Route path="/new" component={NewPostPage}/>
+                </Background>
+            </Switch>
+
+        </BrowserRouter>
     );
 }
 
