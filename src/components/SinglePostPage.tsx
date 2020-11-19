@@ -82,7 +82,7 @@ const EditButton = styled.i`
   font-size: 32px;
   cursor: pointer;
   margin: 8px 0;
-  align-self: end;
+  align-self: flex-end;
   :hover{
   color: #f89029;
   }
@@ -92,7 +92,7 @@ const PostSaveButton = styled.i`
   font-size: 36px;
   cursor: pointer;
   margin: 8px 0;
-  align-self: end;
+  align-self: flex-end;
   :hover{
   color: #f89029;
   }
@@ -102,7 +102,7 @@ const PostDeleteButton = styled.i`
   font-size: 32px;
   cursor: pointer;
   margin-top: 32px;
-  align-self: start;
+  align-self: flex-start;
   :hover{
   color: #f89029;
   }
